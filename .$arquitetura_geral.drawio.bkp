@@ -1,0 +1,33 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.3.0">
+  <diagram name="Página-1" id="jXE2lO5maQPXQ7DxkBEt">
+    <mxGraphModel dx="2412" dy="784" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="BEh8TwTUA70AJd19RFXw-14" edge="1" parent="1" source="BEh8TwTUA70AJd19RFXw-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=29;" target="BEh8TwTUA70AJd19RFXw-2" value="HTTP">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BEh8TwTUA70AJd19RFXw-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=32;" value="Frontend&lt;br&gt;HTML&lt;div&gt;CSS&lt;/div&gt;&lt;div&gt;JavaScript&lt;/div&gt;" vertex="1">
+          <mxGeometry height="230" width="290" x="100" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="BEh8TwTUA70AJd19RFXw-13" edge="1" parent="1" source="BEh8TwTUA70AJd19RFXw-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="BEh8TwTUA70AJd19RFXw-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BEh8TwTUA70AJd19RFXw-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=23;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=middle;" value="&lt;font&gt;Backend&lt;/font&gt;&lt;div&gt;&lt;font&gt;API REST HTTP&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;font&gt;JavaScript&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font&gt;Endpoints:&lt;br&gt;- GET animais-perdidos&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;- POST sinalizar-animal&lt;br&gt;- DELETE deletar-animal&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;URL: http://localhost:1234&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;Exemplo:&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;http://localhost:1234/animais-perdidos&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="440" width="440" x="560" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="BEh8TwTUA70AJd19RFXw-6" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontSize=32;" value="Animais Perdidos&lt;br&gt;MySQL" vertex="1">
+          <mxGeometry height="400" width="320" x="1090" y="175" as="geometry" />
+        </mxCell>
+        <mxCell id="BEh8TwTUA70AJd19RFXw-12" edge="1" parent="1" source="BEh8TwTUA70AJd19RFXw-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="BEh8TwTUA70AJd19RFXw-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BEh8TwTUA70AJd19RFXw-8" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=32;" value="Usuário" vertex="1">
+          <mxGeometry height="210" width="100" x="-100" y="270" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
