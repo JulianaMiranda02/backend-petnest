@@ -38,7 +38,7 @@ function sinalizarAnimal(pedido, resposta) {
                     return
                 }
 
-                console.log("Animal sinalizado com sucseso");
+                console.log("Animal sinalizado com sucesso");
                 resposta.writeHead(200, { "Content-Type": "text/plain" })
                 resposta.end("Animal sinalizado com sucesso")
             }
@@ -47,9 +47,29 @@ function sinalizarAnimal(pedido, resposta) {
 }
 
 function deletarAnimal(pedido, resposta) {
-    console.log("Pedido de Deletar Animal");
-    resposta.writeHead(200, { "Content-Type": "text/plain" })
-    resposta.end("Pedido de Deletar Animal")
+    let body_cru = "";
+    
+    pedido.on("data", chunk => {
+        body_cru += chunk.toString();
+    });
+
+     pedido.on("end", () => {
+        const body = JSON.parse(body_cru);
+
+         pool.query(
+            "delete from animais_perdidos where id = ?" ,
+            [body.id],
+            (erro, result) => {
+                if (erro) {
+                    console.error(erro)
+                    return
+                }
+                console.log("Animal deletado");
+                resposta.writeHead(200, { "Content-Type": "text/plain" })
+                resposta.end("Animal deletado")
+            }
+         )
+     });
 }
 
 // Cria o servidor e coloca na variavel server
