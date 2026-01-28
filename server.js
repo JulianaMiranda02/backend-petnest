@@ -1,5 +1,5 @@
 const http = require("http") // biblioteca, pacote ou modulo
-
+const url = require("url");
 // Conexão backend JavaScript com Banco de Dados MYSQL
 const mysql = require("mysql2")
 
@@ -14,9 +14,26 @@ const pool = mysql.createPool({
 })
 
 function animaisPerdidos(pedido, resposta) {
-    console.log("Pedido de Animais Perdidos");
-    resposta.writeHead(200, { "Content-Type": "text/plain" })
-    resposta.end("Pedido de Animais Perdidos")
+    //     console.log("Pedido de Animais Perdidos");
+    //     resposta.writeHead(200, { "Content-Type": "text/plain" })
+    //     resposta.end("Pedido de Animais Perdidos")
+
+    const parsedUrl = url.parse(pedido.url, true);
+    const query = parsedUrl.query;
+
+    const cidade = query.cidade; 
+    const estado = query.estado; 
+
+    pool.query("select * from animais_perdidos where cidade = ? and estado = ?", [cidade,estado], (erro, resultados) => {
+        if (erro) {
+            resposta.writeHead(500, { "Content-Type": "application/json" });
+            resposta.end("Deu erro, desculpa ai. Tente novamente mais tarde");
+            return;
+        }
+        // resposta OK
+        resposta.writeHead(200, { "Content-Type": "application/json" });
+        resposta.end(JSON.stringify(resultados));
+    });
 }
 
 function sinalizarAnimal(pedido, resposta) {
@@ -48,16 +65,16 @@ function sinalizarAnimal(pedido, resposta) {
 
 function deletarAnimal(pedido, resposta) {
     let body_cru = "";
-    
+
     pedido.on("data", chunk => {
         body_cru += chunk.toString();
     });
 
-     pedido.on("end", () => {
+    pedido.on("end", () => {
         const body = JSON.parse(body_cru);
 
-         pool.query(
-            "delete from animais_perdidos where id = ?" ,
+        pool.query(
+            "delete from animais_perdidos where id = ?",
             [body.id],
             (erro, result) => {
                 if (erro) {
@@ -68,8 +85,8 @@ function deletarAnimal(pedido, resposta) {
                 resposta.writeHead(200, { "Content-Type": "text/plain" })
                 resposta.end("Animal deletado")
             }
-         )
-     });
+        )
+    });
 }
 
 // Cria o servidor e coloca na variavel server
@@ -79,7 +96,7 @@ const server = http.createServer((pedido, resposta) => {
     // url vai ter o endpoint: ex: '/animais-perdidos'
 
     // se for um pedido no endpoint '/animais-perdidos' 
-    if (pedido.url === "/animais-perdidos" && pedido.method === "GET") {
+    if (pedido.url.startsWith("/animais-perdidos") && pedido.method === "GET") {
         animaisPerdidos(pedido, resposta)
     }
 
