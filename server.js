@@ -91,6 +91,20 @@ function deletarAnimal(pedido, resposta) {
 
 // Cria o servidor e coloca na variavel server
 const server = http.createServer((pedido, resposta) => {
+    // CORS (mecanismo de seguranca do navegador)
+        // libera acesso para qualquer origem
+        resposta.setHeader("Access-Control-Allow-Origin", "*");
+        // // libera métodos
+        resposta.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+        // // libera headers
+        resposta.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+        // CORS (mecanismo de seguranca do navegador)
+        // resolve o preflight (OPTIONS)
+        if (pedido.method === "OPTIONS") {
+            resposta.writeHead(204);
+            return resposta.end();
+        }
     // dentro da variavel pedido (objeto) tem uma propriedade (chave) method e url
     // method vai ter métod do pedido (se é GET, POST ou DELETE)
     // url vai ter o endpoint: ex: '/animais-perdidos'
