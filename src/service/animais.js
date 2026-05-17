@@ -34,8 +34,8 @@ function sinalizarAnimal(pedido, resposta, pool) {
         const body = JSON.parse(body_cru); // transforma em objeto JavaScript
 
         pool.query(
-            "INSERT INTO animais_perdidos (nome_sinalizador, telefone, sexo, tipo, porte, descricao, link_foto, rua, numero, bairro, cidade, estado, cep) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
-            [body.nome_sinalizador, body.telefone, body.sexo, body.tipo, body.porte, body.descricao, body.link_foto, body.rua, body.numero, body.bairro, body.cidade, body.estado, body.cep],
+            "INSERT INTO animais_perdidos (nome_sinalizador, telefone, sexo, tipo, porte, descricao, imagem, rua, numero, bairro, cidade, estado, cep) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            [body.nome_sinalizador, body.telefone, body.sexo, body.tipo, body.porte, body.descricao, body.imagem, body.rua, body.numero, body.bairro, body.cidade, body.estado, body.cep],
             (erro, result) => {
                 if (erro) {
                     console.error(erro);
