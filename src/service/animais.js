@@ -1,4 +1,9 @@
 const url = require("url");
+const crypto = require("crypto");
+const {
+    PutObjectCommand
+} = require("@aws-sdk/client-s3");
+const s3 = require("../s3");
 
 function animaisPerdidos(pedido, resposta, pool) {
     //     console.log("Pedido de Animais Perdidos");
@@ -30,12 +35,58 @@ function sinalizarAnimal(pedido, resposta, pool) {
         body_cru += chunk.toString();
     });
     // quando termina de receber
-    pedido.on("end", () => {
+    pedido.on("end", async () => {
         const body = JSON.parse(body_cru); // transforma em objeto JavaScript
+
+        const imagemBase64 = body.imagem;
+
+        const base64Limpo = imagemBase64.replace(/^data:image\/\w+;base64,/, "");
+
+        const tipoImagem = body.type_image;
+
+        // valida se é imagem
+        if (!tipoImagem.startsWith("image/")) {
+
+            resposta.writeHead(400, {
+                "Content-Type": "application/json"
+            });
+
+            resposta.end(JSON.stringify({
+                erro: "Arquivo inválido"
+            }));
+
+            return;
+        }
+
+        // pega extensão automaticamente
+        const extensao =
+            tipoImagem.split("/")[1];
+
+        // converte base64 em buffer
+        const buffer =
+            Buffer.from(base64Limpo, "base64");
+
+        // nome único
+        const nomeArquivo =
+            `${crypto.randomUUID()}.${extensao}`;
+
+        // upload para S3
+        const comando = new PutObjectCommand({
+            Bucket: 'animais-perdidos',
+            Key: nomeArquivo,
+            Body: buffer,
+            ContentType: tipoImagem,
+        });
+
+        await s3.send(comando);
+
+        // url da imagem
+        const urlImagem =
+            `https://animais-perdidos.s3.sa-east-1.amazonaws.com/${nomeArquivo}`;
 
         pool.query(
             "INSERT INTO animais_perdidos (nome_sinalizador, telefone, sexo, tipo, porte, descricao, imagem, rua, numero, bairro, cidade, estado, cep) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
-            [body.nome_sinalizador, body.telefone, body.sexo, body.tipo, body.porte, body.descricao, body.imagem, body.rua, body.numero, body.bairro, body.cidade, body.estado, body.cep],
+            [body.nome_sinalizador, body.telefone, body.sexo, body.tipo, body.porte, body.descricao, urlImagem, body.rua, body.numero, body.bairro, body.cidade, body.estado, body.cep],
             (erro, result) => {
                 if (erro) {
                     console.error(erro);
@@ -81,7 +132,7 @@ function deletarAnimal(pedido, resposta, pool) {
 }
 
 module.exports = {
-   animaisPerdidos,
-   sinalizarAnimal,
-   deletarAnimal,
+    animaisPerdidos,
+    sinalizarAnimal,
+    deletarAnimal,
 };

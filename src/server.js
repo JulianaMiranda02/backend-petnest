@@ -1,7 +1,9 @@
+require("dotenv").config();
 const http = require("http") // biblioteca, pacote ou modulo
 const animal = require("./service/animais");
 // Conexão backend JavaScript com Banco de Dados MYSQL
 const mysql = require("mysql2")
+
 
 const pool = mysql.createPool({
     host: "localhost",
