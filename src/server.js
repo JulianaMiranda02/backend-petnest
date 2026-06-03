@@ -8,7 +8,7 @@ const mysql = require("mysql2")
 const pool = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: process.env.SENHA_DE_ACESSO_MYSQL,
     database: "petnest",
     waitForConnections: true,
     connectionLimit: 10,
@@ -54,7 +54,7 @@ const server = http.createServer((pedido, resposta) => {
 
 // Inicia o servidor, coloca para rodar
 server.listen(1234, () => {
-    console.log("Servidor rodando com sucesso em http://localhost:1234")
+    console.log("Servidor rodando com sucesso na porta 1234")
 })
 
 /* ENCERRAR O POOL QUANDO O APP FECHAR */

@@ -1,0 +1,6 @@
+Quando só mudar arquivos dentro da pasta src, rode o comando abaixo na pasta src
+scp -i ../chave-ec2-backend-petnest.pem -r . ec2-user@18.228.86.52:/home/ec2-user/backend-petnest/src
+
+Quando mudar algo fora da pasta src, tipo instalou um novo modulo e alterou o package.json,
+roda o comando direto na pasta backend-petnest
+scp -i chave-ec2-backend-petnest.pem -r . ec2-user@18.228.86.52:/home/ec2-user/backend-petnest

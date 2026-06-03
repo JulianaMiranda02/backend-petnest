@@ -72,7 +72,7 @@ function sinalizarAnimal(pedido, resposta, pool) {
 
         // upload para S3
         const comando = new PutObjectCommand({
-            Bucket: 'animais-perdidos',
+            Bucket: 'petnest-animais-perdidos',
             Key: nomeArquivo,
             Body: buffer,
             ContentType: tipoImagem,
@@ -82,7 +82,7 @@ function sinalizarAnimal(pedido, resposta, pool) {
 
         // url da imagem
         const urlImagem =
-            `https://animais-perdidos.s3.sa-east-1.amazonaws.com/${nomeArquivo}`;
+            `https://petnest-animais-perdidos.s3.sa-east-1.amazonaws.com/${nomeArquivo}`;
 
         pool.query(
             "INSERT INTO animais_perdidos (nome_sinalizador, telefone, sexo, tipo, porte, descricao, imagem, rua, numero, bairro, cidade, estado, cep) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
